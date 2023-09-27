@@ -140,7 +140,7 @@ export default {
                     console.log('response', response.data.data.content)
                 })
                 .catch(error => {
-                    console.error('文件上传失败:', error);
+                    window.$message.error('拒绝操作: 账户未绑定手机号');
                 });
 
             // 清空文件输入字段
