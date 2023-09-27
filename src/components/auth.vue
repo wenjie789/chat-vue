@@ -157,17 +157,18 @@
 import { ref, reactive, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { userLogin, userRegister, userInfo } from '@/api/auth';
-import type { FormInst, FormItemRule } from 'naive-ui';
+import type { FormInst, FormItemRule} from 'naive-ui';
+import { useMessage } from 'naive-ui'
 
 const allowUserRegister = ref(import.meta.env.VITE_ALLOW_USER_REGISTER.toLowerCase() === 'true')
 const store = useStore();
-
 const loading = ref(false);
 const loginRef = ref<FormInst>();
 const loginForm = reactive({
     username: '',
     password: '',
 });
+const message = useMessage()
 const registerRef = ref<FormInst>();
 const registerForm = reactive({
     username: '',
@@ -221,7 +222,7 @@ const handleLogin = (e: Event) => {
                     return userInfo(token);
                 })
                 .then((res) => {
-                    window.$message.success('登錄成功');
+                   
                     loading.value = false;
 
                     store.commit('updateUserinfo', res);
@@ -263,7 +264,7 @@ const handleRegister = (e: Event) => {
                     return userInfo(token);
                 })
                 .then((res) => {
-                    window.$message.success('註冊成功');
+                    message.success('註冊成功')
                     loading.value = false;
 
                     store.commit('updateUserinfo', res);

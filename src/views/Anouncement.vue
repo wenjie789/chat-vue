@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-nav title="公告" />
+        <main-nav back title="公告" />
 
         <n-list class="main-content-wrap" bordered>
 

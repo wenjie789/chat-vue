@@ -9,7 +9,7 @@
                 description="再看看其他的吧"
             >
                 <template #footer>
-                    <n-button @click="goHome">回主頁/n-button>
+                    <n-button @click="goHome">回主頁</n-button>
                 </template>
             </n-result>
         </n-list>

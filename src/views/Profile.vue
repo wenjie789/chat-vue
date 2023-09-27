@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-nav title="主頁" />
+        <main-nav back title="主頁" />
         <n-list
             class="main-content-wrap profile-wrap"
             bordered

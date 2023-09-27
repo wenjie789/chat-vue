@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-nav title="用戶詳情" />
+        <main-nav back title="用戶詳情" />
 
         <n-list class="main-content-wrap profile-wrap" bordered>
             <!-- 基础信息 -->

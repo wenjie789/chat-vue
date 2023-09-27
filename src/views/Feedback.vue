@@ -14,6 +14,7 @@
                 </li>
             </ul>
         </div>
+        <tabbar v-if="store.state.collapsedLeft"></tabbar>
     </div>
 </template>
 
@@ -41,7 +42,7 @@ const friends = ref<any[]>([]);
 
 
 const title = computed(() => {
-    let t = '广场';
+    let t = '反饋';
 
     if (route.query && route.query.q) {
         if (route.query.t && route.query.t === 'tag') {

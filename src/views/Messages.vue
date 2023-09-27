@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-nav title="消息" />
+        <main-nav back title="消息" />
 
         <n-list class="main-content-wrap messages-wrap" bordered>
             <div v-if="loading" class="skeleton-wrap">

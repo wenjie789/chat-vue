@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-nav title="好友" />
+        <main-nav back title="好友" />
 
         <n-list class="main-content-wrap" bordered>
             <div v-if="loading" class="skeleton-wrap">

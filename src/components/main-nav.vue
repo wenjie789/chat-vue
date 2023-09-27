@@ -14,7 +14,7 @@
     <n-card size="small" :bordered="true" class="nav-title-card">
         <template #header>
             <div class="navbar">
-                <n-button
+                <!-- <n-button
                     class="drawer-btn"
                     v-if="store.state.drawerModelShow && !back"
                     @click="activeDrawer"
@@ -25,7 +25,7 @@
                     <template #icon>
                         <n-icon><dehaze-round /></n-icon>
                     </template>
-                </n-button>
+                </n-button> -->
                 <n-button
                     class="back-btn"
                     v-if="back"

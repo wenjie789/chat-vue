@@ -1,8 +1,9 @@
 <template>
     <div class="chat">
-        <div class="chat-header">
+        <!-- <div class="chat-header">
             <h2>問題反饋</h2>
-        </div>
+        </div> -->
+        <main-nav back title="問題反饋" />
         <div class="chat-messages" ref="messageContainer">
             <div v-for="message in messages" :key="message.id" class="messages">
                 <div v-if="message.type == 2">
@@ -33,14 +34,9 @@
 import io from 'socket.io-client';
 import axios from 'axios';
 import { chatRecords, uploadAttachment } from '@/api/chat';
-const socket = io('ws://106.14.167.99:8009', {
-    path: '/chat',
-    transports: ['websocket'], // 指定传输方式，如WebSocket
-    autoConnect: true, // 是否自动连接
-    reconnection: true, // 是否自动重新连接
-    reconnectionAttempts: 3, // 重新连接尝试次数
-    reconnectionDelay: 1000, // 重新连接延迟时间（毫秒）
-});
+const VITE_SOCKET = import.meta.env.VITE_SOCKET
+const VITE_HOST = import.meta.env.VITE_HOST + '/v1/attachment'
+let socket;
 export default {
     data() {
         return {
@@ -48,13 +44,28 @@ export default {
             newMessage: '',
         };
     },
+    deactivated() {
+        socket.disconnect()
+    },
     activated() {
+        socket = io(VITE_SOCKET, {
+            path: '/chat',
+            transports: ['websocket'], // 指定传输方式，如WebSocket
+            autoConnect: true, // 是否自动连接
+            reconnection: true, // 是否自动重新连接
+            reconnectionAttempts: 3, // 重新连接尝试次数
+            reconnectionDelay: 1000, // 重新连接延迟时间（毫秒）
+        })
+        let obj = { token: localStorage.getItem('PAOPAO_TOKEN') }
+        socket.emit('login', JSON.stringify(obj));
         socket.on('chat_result', (data) => {
+            console.log('chat_result', data)
             this.$nextTick(() => {
                 this.scrollToBottom();
             });
         });
         socket.on('chat_msg', (data) => {
+            console.log('chat_msg', data)
             this.messages.push({
                 type: data.msg_type,
                 content: data.msg_content,
@@ -64,13 +75,9 @@ export default {
                 this.scrollToBottom();
             });
         });
-        let obj = { token: localStorage.getItem('PAOPAO_TOKEN') }
-        socket.emit('login', JSON.stringify(obj));
+
         socket.on('login_result', (data) => {
             console.log('login_result', data)
-            // if(data.code == 0){
-            //     socket.disconnect()
-            // }
         });
         chatRecords({ with_id: this.$route.query.id })
             .then((rsp) => {
@@ -121,7 +128,7 @@ export default {
             formData.append('file', file);
             formData.append('type', 'public/image');
             // 发起网络请求
-            axios.post('http://106.14.167.99:8008/v1/attachment', formData, {
+            axios.post(VITE_HOST, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': 'Bearer ' + token

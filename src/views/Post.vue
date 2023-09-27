@@ -1,6 +1,6 @@
 <template>
     <div>
-        <main-nav title="详情" :back="true" />
+        <main-nav back title="详情" :back="true" />
 
         <n-list class="main-content-wrap" bordered>
             <n-list-item>

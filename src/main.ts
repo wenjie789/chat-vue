@@ -12,9 +12,9 @@ import 'vfonts/FiraCode.css'
 
 createApp(App).use(router).use(store).mount('#app')
 
-declare global {
-    interface Window {
-        $message: MessageApiInjection,
-        $store: any
-    }
-}
+// declare global {
+//     interface Window {
+//         $message: MessageApiInjection,
+//         $store: any
+//     }
+// }
